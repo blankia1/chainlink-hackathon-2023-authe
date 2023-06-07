@@ -1,0 +1,43 @@
+get:
+  summary: API Health Check
+  description: Checks the health of the API, returns an OK message
+  operationId: 'health-check'
+  tags:
+    - v0
+    - public
+  parameters:
+    - name: 'Source-Platform'
+      in: 'header'
+      schema:
+        type: string
+      description: Header to indicate which client is requesting the resource. Can be front-end, back-end, oracle or any other string value.
+      required: true
+    - name: 'Source-Region'
+      in: 'header'
+      schema:
+        type: string
+      description: Header to indicate which region the request is coming from
+      required: true
+    - name: 'Destination-Region'
+      in: 'header'
+      schema:
+        type: string
+      description: Header to indicate which region the request is going to
+      required: true
+  responses:
+    '200':
+      description: 'An OK message in JSON format'
+      content:
+        application/json:
+          schema:
+            type: 'object'
+  x-amazon-apigateway-request-validator: "Validate query string parameters and\
+    \ headers"
+  x-amazon-apigateway-integration:
+    httpMethod: 'POST'
+    credentials:
+      Fn::GetAtt: ApiRole.Arn
+    uri:
+      Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HealthLambdaFunction.Arn}/invocations
+    passthroughBehavior: 'when_no_match'
+    type: 'aws_proxy'

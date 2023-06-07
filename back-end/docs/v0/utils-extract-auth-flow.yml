@@ -1,0 +1,58 @@
+post:
+  summary: extract the authflow
+  description: |
+    Invokes hello world lambda function example.
+  responses:
+    "200":
+      description: search results matching criteria
+    "400":
+      description: bad input parameter
+  operationId: 'extract-auth-flow-function'
+  tags:
+    - v0
+    - public
+  x-amazon-apigateway-integration:
+    uri:
+      Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UtilsExtractAuthFlowLambdaFunction.Arn}/invocations
+    passthroughBehavior: when_no_match
+    httpMethod: POST
+    credentials:
+      Fn::GetAtt: ApiRole.Arn
+    type: aws_proxy
+options:
+  responses:
+    "200":
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+        Access-Control-Allow-Credentials:
+          schema:
+            type: 'string'
+      content: {}
+  x-amazon-apigateway-integration:
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Methods: "'OPTIONS,PUT,DELETE'"
+          method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'"
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+          method.response.header.Access-Control-Allow-Credentials: "'true'"
+        responseTemplates:
+          application/json: "#set($origin = $input.params(\"Origin\"))\n#if($origin\
+            \ == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\"\
+            .+\")) #set($context.responseOverride.header.Access-Control-Allow-Origin\
+            \ = $origin) #end"
+    requestTemplates:
+      application/json: "{statusCode:200}"
+    passthroughBehavior: "when_no_match"
+    contentHandling: "CONVERT_TO_TEXT"
+    type: "mock"

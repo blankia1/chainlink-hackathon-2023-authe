@@ -1,0 +1,31 @@
+{
+  "name": "quick_start_node_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth_local.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node auth_local.js"
+  },
+  "dependencies": {
+    "@moralisweb3/common-evm-utils": "^2.21.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "jwt-decode": "^3.1.2",
+    "moralis": "^2.21.0"
+  },
+  "devDependencies": {
+    "@moralisweb3/common-evm-utils": "^2.21.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "moralis": "^2.21.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

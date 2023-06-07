@@ -1,0 +1,31 @@
+x-amazon-apigateway-any-method:
+  consumes:
+    - application/json
+  produces:
+    - application/json
+  x-amazon-apigateway-integration:
+    type: mock
+    requestTemplates:
+      application/json: |
+        {
+          "statusCode": 404
+        }
+    responses:
+      default:
+        statusCode: 404
+        responseParameters: 
+          method.response.header.Content-Type: "'application/json'"
+        responseTemplates:
+          application/json: |
+            {
+              "error": {
+                "name": "notFound",
+                "message": "Resource not found"
+              }
+            }
+  responses:
+    '404':
+      description: Resource not found
+      headers:
+        Content-Type:
+          type: string

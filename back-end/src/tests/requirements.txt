@@ -1,0 +1,2 @@
+requests
+moto[dynamodb2]

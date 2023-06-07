@@ -1,0 +1,1445 @@
+openapi: 3.0.1
+x-amazon-apigateway-minimum-compression-size: 1024
+info:
+  title:
+    Ref: AWS::StackName
+  description: AuthE API
+  version:
+    Ref: Version
+  servers:
+    - url:
+        Fn::Sub: https://authe.io
+      variables:
+        basePath:
+          default:
+            Ref: Env
+paths:
+  /auth/request-message:
+    post:
+      summary: Auth
+      description: |
+        Invokes hello world lambda function example.
+      operationId: auth-request-message
+      tags:
+        - v0
+        - auth
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /auth/verify:
+    post:
+      summary: Auth
+      description: |
+        Invokes hello world lambda function example.
+      operationId: auth-verify
+      tags:
+        - v0
+        - auth
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+            Access-Control-Request-Headers:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,POST,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'access-control-allow-credential,access-control-allow-credentials,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''https://authe.io'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Request-Headers: '''*'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /auth/authenticate:
+    get:
+      summary: Auth
+      description: |
+        Invokes hello world lambda function example.
+      operationId: auth-authenticate
+      tags:
+        - v0
+        - auth
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+            Access-Control-Request-Headers:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,POST,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'access-control-allow-credential,access-control-allow-credentials,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''https://authe.io'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+              method.response.header.Access-Control-Request-Headers: '''*'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /auth/logout:
+    get:
+      summary: Auth
+      description: |
+        Invokes hello world lambda function example.
+      operationId: auth-logout
+      tags:
+        - v0
+        - auth
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /public/GET/health:
+    get:
+      summary: API Health Check
+      description: Checks the health of the API, returns an OK message
+      operationId: health-check
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: Source-Platform
+          in: header
+          schema:
+            type: string
+          description: >-
+            Header to indicate which client is requesting the resource. Can be
+            front-end, back-end, oracle or any other string value.
+          required: true
+        - name: Source-Region
+          in: header
+          schema:
+            type: string
+          description: Header to indicate which region the request is coming from
+          required: true
+        - name: Destination-Region
+          in: header
+          schema:
+            type: string
+          description: Header to indicate which region the request is going to
+          required: true
+      responses:
+        '200':
+          description: An OK message in JSON format
+          content:
+            application/json:
+              schema:
+                type: object
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${HealthLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        type: aws_proxy
+  /public/GET/v0/:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: default-function
+      tags:
+        - v0
+      parameters:
+        - name: f
+          in: query
+          description: let the endpoint know from which address the request is coming
+          required: true
+          schema:
+            type: string
+            example: '0x1234567890123456789012345678901234567890'
+        - name: t
+          in: query
+          description: let the endpoint know to which address the request is going
+          required: true
+          schema:
+            type: string
+            example: '0x1234567890123456789012345678901234567890'
+        - name: 'n'
+          in: query
+          description: let the endpoint know to which function the request is going
+          required: true
+          schema:
+            type: string
+            example: transfer
+        - name: d
+          in: query
+          description: let the endpoint know to which data is being sent
+          required: true
+          schema:
+            type: string
+            example: >-
+              0xa9059cbb000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000016345785d8a0000
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UseCaseRunnerLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/events/:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-events
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: address
+          in: query
+          description: let the endpoint know for which addresses you need the events
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetEventsLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/ANY/v0/utils/encode:
+    post:
+      summary: encode
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: encode-function
+      tags:
+        - v0
+        - public
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UtilsEncodeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/ANY/v0/utils/decode:
+    post:
+      summary: decode
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: decode-function
+      tags:
+        - v0
+        - public
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OracleRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UtilsDecodeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/ANY/v0/utils/extract-auth-flow:
+    post:
+      summary: extract the authflow
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: extract-auth-flow-function
+      tags:
+        - v0
+        - public
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UtilsExtractAuthFlowLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /public/ANY/v0/utils/validate-signature:
+    post:
+      summary: validate signature
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: validate-signature
+      tags:
+        - v0
+        - public
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedPermissionDocumentRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UtilsValidateSignatureLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/permission-documents/{id}:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-permission-document
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: id
+          in: path
+          description: let the endpoint know for which id you need the permission document
+          type: string
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPermissionDocumentLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/permission-documents/:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-permission-documents
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: address
+          in: query
+          description: >-
+            let the endpoint know for which addresses you need the permission
+            documents
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPermissionDocumentsLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/transactions/{transaction_hash}:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-transaction
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: transaction_hash
+          in: path
+          description: >-
+            let the endpoint know for which transaction_hash you need the
+            transactions
+          required: true
+          type: string
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the transactions
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTransactionLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/transactions/:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-transactions
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: address
+          in: query
+          description: let the endpoint know for which addresses you need the transactions
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the transactions
+          required: true
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTransactionsLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/ANY/v0/permission-documents/:
+    post:
+      summary: Create permission document
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: create-permission-documents
+      tags:
+        - v0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedPermissionDocumentRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreatePermissionDocumentLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /public/ANY/v0/permission-documents/{id}:
+    put:
+      summary: put permission document
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-permission-documents
+      tags:
+        - v0
+      parameters:
+        - name: id
+          in: path
+          description: >-
+            let the endpoint know for which id you need to update the permission
+            documents
+          required: true
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedPermissionDocumentRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UpdatePermissionDocumentsLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /public/ANY/v0/permission-documents/validate/:
+    post:
+      summary: decode
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: validate-permission-document
+      tags:
+        - v0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PermissionDocumentRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ValidatePermissionDocumentLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/ANY/v0/transactions/validate/:
+    post:
+      summary: decode
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: validate-transaction
+      tags:
+        - v0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateTransactionRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ValidateTransactionLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /public/GET/v0/disputes/{id}:
+    get:
+      summary: get dispute
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-dispute
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: id
+          in: path
+          description: let the endpoint know for which id you need the dispute
+          required: true
+          type: string
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the dispute
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetDisputeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /private/GET/v0/disputes/{id}:
+    get:
+      summary: get dispute
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-dispute
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: id
+          in: path
+          description: let the endpoint know for which id you need the dispute
+          required: true
+          type: string
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the dispute
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetDisputeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /private/GET/v0/disputes/:
+    get:
+      summary: get disputes
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-disputes
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: address
+          in: query
+          description: let the endpoint know for which addresses you need the transactions
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the transactions
+          required: true
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetDisputesLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /private/ANY/v0/disputes/:
+    post:
+      summary: Create dispute
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: create-dispute
+      tags:
+        - v0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisputeRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateDisputeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /private/ANY/v0/disputes/{id}:
+    put:
+      summary: put dispute
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-dispute
+      tags:
+        - v0
+      parameters:
+        - name: id
+          in: path
+          description: let the endpoint know for which id you need to update the dispute
+          required: true
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisputeRequest'
+        required: true
+      x-amazon-apigateway-request-validator: Validate body query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UpdateDisputeLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /internal/GET/v0/transactions/{transaction_hash}:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-transaction-internal
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: transaction_hash
+          in: path
+          description: >-
+            let the endpoint know for which transaction_hash you need the
+            transactions
+          required: true
+          type: string
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the transactions
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTransactionInternalLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /internal/GET/v0/transactions/:
+    get:
+      summary: get hello world
+      description: |
+        Invokes hello world lambda function example.
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+      operationId: get-transactions-internal
+      tags:
+        - v0
+        - public
+      parameters:
+        - name: address
+          in: query
+          description: let the endpoint know for which addresses you need the transactions
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: chain
+          in: query
+          description: let the endpoint know for which chain you need the transactions
+          required: true
+          type: string
+      x-amazon-apigateway-request-validator: Validate query string parameters and headers
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetTransactionsInternalLambdaFunction.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        type: aws_proxy
+  /internal/ANY/v0/transactions/stream:
+    post:
+      summary: Process streamed transaction
+      description: |
+        Invokes hello world lambda function example.
+      operationId: moralis-stream-transactions
+      tags:
+        - v0
+      responses:
+        '200':
+          description: 200 response
+          content: {}
+        '400':
+          description: 400 response
+          content: {}
+      x-amazon-apigateway-integration:
+        type: aws
+        credentials:
+          Fn::GetAtt: ApiRole.Arn
+        httpMethod: POST
+        uri:
+          Fn::Sub: >-
+            arn:aws:apigateway:${AWS::Region}:sqs:path/${AWS::AccountId}/${MoralisStreamProcessingQueue.QueueName}
+        passthroughBehavior: never
+        responses:
+          default:
+            statusCode: '200'
+        requestTemplates:
+          application/json: Action=SendMessage&MessageBody=$input.body
+        requestParameters:
+          integration.request.header.Content-Type: '''application/x-www-form-urlencoded'''
+    options:
+      responses:
+        '200':
+          description: 200 response
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+          content: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: '200'
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,PUT,DELETE'''
+              method.response.header.Access-Control-Allow-Headers: >-
+                'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,Access-Control-Allow-Credentials'
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Credentials: '''true'''
+            responseTemplates:
+              application/json: >-
+                #set($origin = $input.params("Origin"))
+
+                #if($origin == "") #set($origin = $input.params("origin")) #end
+
+                #if($origin.matches(".+"))
+                #set($context.responseOverride.header.Access-Control-Allow-Origin
+                = $origin) #end
+        requestTemplates:
+          application/json: '{statusCode:200}'
+        passthroughBehavior: when_no_match
+        contentHandling: CONVERT_TO_TEXT
+        type: mock
+  /{catchall+}:
+    x-amazon-apigateway-any-method:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      x-amazon-apigateway-integration:
+        type: mock
+        requestTemplates:
+          application/json: |
+            {
+              "statusCode": 404
+            }
+        responses:
+          default:
+            statusCode: 404
+            responseParameters:
+              method.response.header.Content-Type: '''application/json'''
+            responseTemplates:
+              application/json: |
+                {
+                  "error": {
+                    "name": "notFound",
+                    "message": "Resource not found"
+                  }
+                }
+      responses:
+        '404':
+          description: Resource not found
+          headers:
+            Content-Type:
+              type: string
+components:
+  schemas:
+    OracleRequest:
+      type: object
+      properties:
+        f:
+          type: string
+        t:
+          type: string
+        'n':
+          type: string
+        d:
+          type: string
+        r:
+          type: string
+      required:
+        - f
+        - t
+        - 'n'
+        - d
+    ExtendedPermissionDocumentRequest:
+      type: object
+      properties:
+        address:
+          type: string
+        version:
+          type: string
+        signature:
+          type: string
+        status:
+          type: string
+        chain:
+          type: string
+        permission_document:
+          $ref: '#/components/schemas/PermissionDocumentRequest'
+      required:
+        - address
+        - version
+        - signature
+        - status
+        - chain
+        - permission_document
+    DisputeRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        transaction_hash:
+          type: string
+        created_by:
+          type: string
+        chain:
+          type: string
+        action:
+          type: string
+        function_abi:
+          type: string
+        contract_abi:
+          type: string
+        status:
+          type: string
+        result_hash:
+          type: string
+        proof_hash:
+          type: string
+        notes:
+          type: string
+      required:
+        - transaction_hash
+        - created_by
+        - chain
+        - status
+    PermissionDocumentRequest:
+      type: object
+      properties:
+        Version:
+          type: string
+        Signature:
+          type: string
+        Statement:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissionStatementRequest'
+      required:
+        - Version
+        - Signature
+        - Statement
+    PermissionStatementRequest:
+      type: object
+      properties:
+        Sid:
+          type: string
+        Effect:
+          type: string
+        Action:
+          type: array
+        Principal:
+          type: array
+        Resource:
+          type: array
+      required:
+        - Sid
+        - Effect
+        - Action
+        - Principal
+        - Resource
+    ValidateTransactionRequest:
+      type: object
+      properties:
+        oracle_decoded_request:
+          $ref: '#/components/schemas/OracleRequest'
+        permission_documents:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PermissionDocumentRequest'
+      required:
+        - oracle_decoded_request
+        - permission_documents
+    JSONResponse:
+      type: object
+x-amazon-apigateway-request-validators:
+  Validate query string parameters and headers:
+    validateRequestParameters: true
+    validateRequestBody: false
+  Validate body query string parameters and headers:
+    validateRequestParameters: true
+    validateRequestBody: true

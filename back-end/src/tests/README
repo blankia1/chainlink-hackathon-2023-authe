@@ -1,0 +1,5 @@
+Run the tests
+```
+pytest -rP --log-cli-level=INFO
+pytest --log-cli-level=ERROR
+```
